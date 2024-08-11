@@ -1,6 +1,6 @@
 # Multiversal.blog
 
-Welcome to **Multiversal.blog**, an open-source platform where creativity meets the infinite. This project is designed to provide a space for poets, writers, musicians, and storytellers to share their unique creations with a global audience. Whether you're looking to share a heartfelt poem, a captivating story, or a soul-stirring song, Multiversal.blog is your stage.
+Welcome to [**Multiversal.blog**](https://multiversal.pages.dev/), an open-source platform where creativity meets the infinite. This project is designed to provide a space for poets, writers, musicians, and storytellers to share their unique creations with a global audience. Whether you're looking to share a heartfelt poem, a captivating story, or a soul-stirring song, Multiversal.blog is your stage.
 
 ## 🌟 Features
 
@@ -13,7 +13,11 @@ Welcome to **Multiversal.blog**, an open-source platform where creativity meets 
 
 ## 🚀 Getting Started
 
-### Prerequisites
+Visit the live website at [**Multiversal.blog**](https://multiversal.pages.dev/) to explore the platform and start sharing your creative work.
+
+### Prerequisites for Development
+
+If you're interested in contributing to the project, you'll need:
 
 - **Node.js** (v16.x or later)
 - **MySQL** or another relational database
@@ -52,8 +56,8 @@ Welcome to **Multiversal.blog**, an open-source platform where creativity meets 
     npm run dev
     ```
 
-6. **Visit the Site**
-    Open your browser and go to `http://localhost:3000` to see Multiversal.blog in action!
+6. **Visit the Local Site**
+    Open your browser and go to `http://localhost:3000` to see the local development version of Multiversal.blog in action.
 
 ## 🛠️ Contributing
 
@@ -73,7 +77,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 💬 Contact
 
-For any questions or feedback, feel free to open an issue or contact us at [your-email@example.com](mailto:sh20raj@gmail.com).
+For any questions or feedback, feel free to open an issue or contact us at [sh20raj@gmail.com](mailto:sh20raj@gmail.com).
 
 ---
 
