@@ -1,6 +1,6 @@
 # Multiversal.blog
 
-Welcome to [**Multiversal.blog**](https://multiversal.pages.dev/), an open-source platform where creativity meets the infinite. This project is designed to provide a space for poets, writers, musicians, and storytellers to share their unique creations with a global audience. Whether you're looking to share a heartfelt poem, a captivating story, or a soul-stirring song, Multiversal.blog is your stage.
+Welcome to [**Multiversal.blog**](https://multiversal.pages.dev/) ✅, an open-source platform where creativity meets the infinite. This project is designed to provide a space for poets, writers, musicians, and storytellers to share their unique creations with a global audience. Whether you're looking to share a heartfelt poem, a captivating story, or a soul-stirring song, Multiversal.blog is your stage.
 
 ## 🌟 Features
 
