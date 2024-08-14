@@ -1,24 +1,18 @@
-import React from 'react';
-import Link from 'next/link';
+import React from "react";
+import Link from "next/link";
 
 const Nav = () => {
   return (
-    <nav className="flex justify-center space-x-4 p-4 bg-white">
-      <Link href="/">
-        <span className="text-black">Home</span>
-      </Link>
-      <Link href="/categories">
-        <span className="text-black">Categories</span>
-      </Link>
-      <Link href="/explore">
-        <span className="text-black">Explore</span>
-      </Link>
-      <Link href="/about">
-        <span className="text-black">About</span>
-      </Link>
-      <Link href="/contact">
-        <span className="text-black">Contact</span>
-      </Link>
+    <nav className="flex justify-center items-center p-4 bg-white border-b-2 border-spacing-y-60">
+      <div className="flex items-center space-x-2 text-black">
+        <Link href="/" className=" ">
+          <div className="text-xl font-bold text-black">Multiversal Writer</div>
+        </Link>
+        <span>|</span>
+        <Link href="/explore" className="hover:underline">
+          Explore
+        </Link>
+      </div>
     </nav>
   );
 };
