@@ -17,6 +17,7 @@ const ExplorePage = () => {
       <Books />
       <hr />
       <Story />
+      
     </main>
   );
 };
