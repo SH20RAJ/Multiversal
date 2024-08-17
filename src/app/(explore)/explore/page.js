@@ -1,6 +1,8 @@
 'use client';
 
+import Books from '@/components/Explore/Books';
 import PoemCard from '@/components/Explore/PoemCard';
+import Quotes from '@/components/Explore/Quotes';
 
 
 const ExplorePage = () => {
@@ -39,29 +41,15 @@ const ExplorePage = () => {
   ];
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen p-4 bg-white">
-      <h1 className="text-3xl font-bold text-black mb-8">Explore Posts</h1>
+    <main className="flex flex-col min-h-screen p-4 bg-white">
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-5xl">
-        {posts.map((post) => (
-          <div
-            key={post.id}
-            className="p-6 border border-gray-200 rounded-lg shadow-sm hover:shadow-lg hover:border-indigo-600 transition duration-300 transform hover:scale-105"
-          >
-            <h2 className="text-xl font-semibold text-black mb-2">
-              {post.title}
-            </h2>
-            <p className="text-gray-600 mb-4">{post.description}</p>
-            <p className="text-gray-500 text-sm">By {post.author}</p>
-          </div>
-        ))}
-      </div>
-      <h1 className="text-3xl font-bold text-black mb-8">Explore Poems</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-5xl">
-        {poems.map((poem) => (
-          <PoemCard key={poem.id} poem={poem} />
-        ))}
-      </div>
+      <Quotes />
+
+      <hr />
+
+      <Books />
+
+
 
     </main>
   );
