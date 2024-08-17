@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 
 const Nav = () => {
+  const isLoggedIn = 1;
   return (
     <nav className="flex justify-center items-center p-4 bg-white border-b-2 border-spacing-y-60">
       <div className="flex items-center space-x-2 text-black">
@@ -13,6 +14,31 @@ const Nav = () => {
           Explore
         </Link>
       </div>
+      {/* Justify end is used to align the items to the end of the container */}
+      <div className="
+      ml-auto 
+      ">
+
+      {
+        !isLoggedIn ? (
+          <div className="flex items-center space-x-2 text-black">
+        <Link href="/login" className="hover:underline">
+          Login
+        </Link>
+        <Link href="/register" className="hover:underline">
+          Register
+        </Link>
+      </div>
+        ) : (
+          <div className="flex items-center space-x-2 text-black">
+            <Link href="/profile" className="hover:underline">
+              Profile
+            </Link>
+          </div>
+        )
+      }
+      </div>
+      
     </nav>
   );
 };
