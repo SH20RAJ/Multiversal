@@ -2,11 +2,11 @@ import React from "react";
 import Link from "next/link";
 
 const Nav = () => {
-  const isLoggedIn = 1;
+  const isLoggedIn = true; // Use a boolean instead of an integer
   return (
-    <nav className="flex justify-center items-center p-4 bg-white border-b-2 border-spacing-y-60">
+    <nav className="flex justify-center items-center p-4 bg-white border-b-2">
       <div className="flex items-center space-x-2 text-black">
-        <Link href="/" className=" ">
+        <Link href="/">
           <div className="text-xl font-bold text-black">Multiversal Writer</div>
         </Link>
         <span>|</span>
@@ -14,31 +14,25 @@ const Nav = () => {
           Explore
         </Link>
       </div>
-      {/* Justify end is used to align the items to the end of the container */}
-      <div className="
-      ml-auto 
-      ">
-
-      {
-        !isLoggedIn ? (
-          <div className="flex items-center space-x-2 text-black">
-        <Link href="/login" className="hover:underline">
-          Login
-        </Link>
-        <Link href="/register" className="hover:underline">
-          Register
-        </Link>
-      </div>
-        ) : (
-          <div className="flex items-center space-x-2 text-black">
+      <div className="ml-auto flex items-center space-x-2 text-black">
+        {
+          !isLoggedIn ? (
+            <>
+              <Link href="/login" className="hover:underline">
+                Login
+              </Link>
+              <span>|</span>
+              <Link href="/register" className="hover:underline">
+                Register
+              </Link>
+            </>
+          ) : (
             <Link href="/profile" className="hover:underline">
               Profile
             </Link>
-          </div>
-        )
-      }
+          )
+        }
       </div>
-      
     </nav>
   );
 };

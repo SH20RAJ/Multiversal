@@ -14,7 +14,7 @@ export default function layout({ children }) {
             <Sidebar />
           </div>
 
-          <div className="w-3/4">
+          <div className="w-3/4 flex flex-col gap-4 ">
             {/* container */}
             <div className="p-4">{children}</div>
           </div>
