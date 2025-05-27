@@ -1,23 +1,31 @@
 {
-  "name": "multiversal",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "next": "15.3.2"
-  },
-  "devDependencies": {
-    "@tailwindcss/postcss": "^4",
-    "tailwindcss": "^4",
-    "eslint": "^9",
-    "eslint-config-next": "15.3.2",
-    "@eslint/eslintrc": "^3"
-  }
+	"name": "multiversal",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"dev": "next dev --turbopack",
+		"build": "next build",
+		"start": "next start",
+		"lint": "next lint",
+		"deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+		"preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+		"cf-typegen": "wrangler types --env-interface CloudflareEnv ./cloudflare-env.d.ts"
+	},
+	"dependencies": {
+		"@ant-design/nextjs-registry": "^1.0.2",
+		"@opennextjs/cloudflare": "^1.0.4",
+		"antd": "^5.25.3",
+		"lucide-react": "^0.511.0",
+		"next": "15.3.2",
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0"
+	},
+	"devDependencies": {
+		"@eslint/eslintrc": "^3",
+		"@tailwindcss/postcss": "^4",
+		"eslint": "^9",
+		"eslint-config-next": "15.3.2",
+		"tailwindcss": "^4",
+		"wrangler": "^4.16.1"
+	}
 }

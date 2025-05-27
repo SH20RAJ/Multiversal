@@ -3,11 +3,11 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --accent-gradient: linear-gradient(135deg, #ff6b6b 0%, #ffa500 100%);
+  --success-color: #52c41a;
+  --warning-color: #faad14;
+  --error-color: #ff4d4f;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -22,5 +22,290 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Geist Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+  scroll-behavior: smooth;
+}
+
+/* Enhanced animations and transitions */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% { 
+    transform: translateY(0px); 
+  }
+  50% { 
+    transform: translateY(-10px); 
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(255, 107, 107, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 107, 107, 0);
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+}
+
+/* Enhanced card hover effects */
+.category-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.15) !important;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.featured-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 35px rgba(0,0,0,0.12) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Button enhancements */
+.ant-btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  transition: all 0.3s ease;
+}
+
+.ant-btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Carousel dots styling */
+.custom-dots .slick-dots li button {
+  background: #1890ff;
+  height: 8px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.ant-carousel .slick-dots li.slick-active button {
+  background: #ff6b6b;
+  width: 24px;
+}
+
+/* Steps component styling */
+.ant-steps-item-icon {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  border-color: transparent !important;
+}
+
+.ant-steps-item-icon .ant-steps-icon {
+  color: white !important;
+}
+
+/* Typography enhancements */
+.ant-typography h1,
+.ant-typography h2,
+.ant-typography h3,
+.ant-typography h4,
+.ant-typography h5 {
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+/* Card enhancements */
+.ant-card {
+  border-radius: 16px !important;
+  overflow: hidden;
+}
+
+.ant-card-body {
+  padding: 24px;
+}
+
+/* Tag enhancements */
+.ant-tag {
+  border-radius: 12px;
+  font-weight: 500;
+  border: none;
+}
+
+/* Avatar enhancements */
+.ant-avatar {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Rate component styling */
+.ant-rate-star {
+  font-size: 16px;
+}
+
+/* Modal enhancements */
+.ant-modal {
+  border-radius: 16px !important;
+  overflow: hidden;
+}
+
+.ant-modal-header {
+  border-radius: 16px 16px 0 0 !important;
+}
+
+/* Float button enhancements */
+.ant-float-btn-primary {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ffa500 100%);
+  border: none;
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+}
+
+.ant-float-btn-primary:hover {
+  animation: pulse 2s infinite;
+}
+
+/* Loading and skeleton improvements */
+.ant-skeleton-content .ant-skeleton-title,
+.ant-skeleton-content .ant-skeleton-paragraph > li {
+  background: linear-gradient(90deg, #f2f2f2 25%, #e6e6e6 50%, #f2f2f2 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Input and form enhancements */
+.ant-input,
+.ant-input-affix-wrapper {
+  border-radius: 8px;
+  border: 2px solid #e8e8e8;
+  transition: all 0.3s ease;
+}
+
+.ant-input:focus,
+.ant-input-affix-wrapper:focus-within {
+  border-color: #667eea;
+  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+}
+
+/* Select component enhancements */
+.ant-select-selector {
+  border-radius: 8px !important;
+  border: 2px solid #e8e8e8 !important;
+}
+
+.ant-select-focused .ant-select-selector {
+  border-color: #667eea !important;
+  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2) !important;
+}
+
+/* Progress bar enhancements */
+.ant-progress-bg {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+}
+
+/* Badge enhancements */
+.ant-badge-count {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ffa500 100%);
+  border: none;
+  box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+}
+
+/* Timeline enhancements */
+.ant-timeline-item-head {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+}
+
+/* Responsive design improvements */
+@media (max-width: 768px) {
+  .ant-row {
+    margin-left: -8px !important;
+    margin-right: -8px !important;
+  }
+  
+  .ant-col {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+  
+  .ant-card-body {
+    padding: 16px;
+  }
+  
+  .category-card:hover {
+    transform: translateY(-4px) scale(1.01);
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .ant-card {
+    background: #1f1f1f;
+    border-color: #303030;
+  }
+  
+  .ant-card-body {
+    color: #e8e8e8;
+  }
+  
+  .category-card:hover {
+    box-shadow: 0 15px 40px rgba(255,255,255,0.1) !important;
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus styles for keyboard navigation */
+.ant-btn:focus-visible,
+.ant-input:focus-visible,
+.ant-card:focus-visible {
+  outline: 2px solid #667eea;
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .ant-btn-primary {
+    background: #0066cc !important;
+    border-color: #0066cc !important;
+  }
+  
+  .ant-card {
+    border: 2px solid #333 !important;
+  }
 }
