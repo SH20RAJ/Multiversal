@@ -166,6 +166,8 @@ export default function NavigationHeader() {
       >
         {/* Logo */}
         <div style={{ display: 'flex', alignItems: 'center' }}>
+          <Link href="/">
+            
           <Title 
             level={3} 
             style={{ 
@@ -176,8 +178,9 @@ export default function NavigationHeader() {
               fontWeight: 700
             }}
           >
-            ✨ Multiversal.blog
+            ✨ Multiversal
           </Title>
+          </Link>
         </div>
 
         {/* Desktop Navigation */}
