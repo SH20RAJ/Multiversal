@@ -14,6 +14,7 @@ import {
   Menu,
   Input
 } from 'antd';
+import { useAuth, signOutUser } from '../lib/auth-client';
 import { 
   Plus,
   Search as SearchIcon,
@@ -41,6 +42,7 @@ const { Search } = Input;
 export default function NavigationHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuVisible, setMobileMenuVisible] = useState(false);
+  const { user, isLoading, isAuthenticated } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -74,6 +76,14 @@ export default function NavigationHeader() {
       href: '/about'
     }
   ];
+
+  const handleSignOut = async () => {
+    try {
+      await signOutUser();
+    } catch (error) {
+      // Error signing out
+    }
+  };
 
   const userMenuItems = [
     {
@@ -186,52 +196,80 @@ export default function NavigationHeader() {
               </Link>
             ))}
             
-            <Badge count={3} size="small">
-              <Button 
-                type="text" 
-                icon={<BellDot />} 
-                size="large"
-              />
-            </Badge>
-            
-            <Dropdown 
-              menu={{ 
-                items: userMenuItems,
-                onClick: ({ key }) => {
-                  if (key === 'dashboard') {
-                    window.location.href = '/dashboard';
-                  } else if (key === 'profile') {
-                    window.location.href = '/profile/luna-martinez';
-                  }
-                }
-              }} 
-              placement="bottomRight"
-              trigger={['click']}
-            >
-              <Avatar 
-                style={{ 
-                  backgroundColor: '#1890ff',
-                  cursor: 'pointer'
-                }} 
-                icon={<User />} 
-              />
-            </Dropdown>
-            
-            <Button 
-              type="primary" 
-              icon={<Plus />}
-              size="large"
-              onClick={() => window.location.href = '/create'}
-              style={{
-                background: 'linear-gradient(135deg, #ff6b6b 0%, #ffa500 100%)',
-                border: 'none',
-                borderRadius: 8,
-                fontWeight: 600,
-                boxShadow: '0 4px 15px rgba(255, 107, 107, 0.3)'
-              }}
-            >
-              Create
-            </Button>
+            {user ? (
+              <>
+                <Badge count={3} size="small">
+                  <Button 
+                    type="text" 
+                    icon={<BellDot />} 
+                    size="large"
+                  />
+                </Badge>
+                
+                <Dropdown 
+                  menu={{ 
+                    items: userMenuItems,
+                    onClick: ({ key }) => {
+                      if (key === 'dashboard') {
+                        window.location.href = '/dashboard';
+                      } else if (key === 'profile') {
+                        window.location.href = `/profile/${user.id}`;
+                      } else if (key === 'logout') {
+                        handleSignOut();
+                      }
+                    }
+                  }} 
+                  placement="bottomRight"
+                  trigger={['click']}
+                >
+                  <Avatar 
+                    src={user.image}
+                    style={{ 
+                      backgroundColor: user.image ? 'transparent' : '#1890ff',
+                      cursor: 'pointer'
+                    }} 
+                    icon={!user.image && <User />} 
+                  />
+                </Dropdown>
+                
+                <Button 
+                  type="primary" 
+                  icon={<Plus />}
+                  size="large"
+                  onClick={() => window.location.href = '/create'}
+                  style={{
+                    background: 'linear-gradient(135deg, #ff6b6b 0%, #ffa500 100%)',
+                    border: 'none',
+                    borderRadius: 8,
+                    fontWeight: 600,
+                    boxShadow: '0 4px 15px rgba(255, 107, 107, 0.3)'
+                  }}
+                >
+                  Create
+                </Button>
+              </>
+            ) : (
+              <>
+                <Link href="/auth/signin">
+                  <Button size="large" style={{ borderRadius: 8 }}>Sign In</Button>
+                </Link>
+                <Link href="/auth/signin">
+                  <Button 
+                    type="primary" 
+                    size="large"
+                    style={{
+                      background: 'linear-gradient(135deg, #ff6b6b 0%, #ffa500 100%)',
+                      border: 'none',
+                      borderRadius: 8,
+                      fontWeight: 600,
+                      boxShadow: '0 4px 15px rgba(255, 107, 107, 0.3)'
+                    }}
+                  >
+                    Get Started
+                  </Button>
+                </Link>
+              </>
+            )}
           </Space>
         </div>
 

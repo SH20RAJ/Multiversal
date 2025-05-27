@@ -67,7 +67,7 @@ export default function SiteFooter() {
             Get weekly inspiration, featured works, writing prompts, and exclusive creator resources delivered to your inbox.
           </Paragraph>
           <div style={{ maxWidth: '500px', margin: '0 auto' }}>
-            <Input.Group compact>
+            <Space.Compact style={{ width: '100%' }}>
               <Input
                 style={{ width: 'calc(100% - 120px)' }}
                 placeholder="Enter your email address"
@@ -85,7 +85,7 @@ export default function SiteFooter() {
               >
                 Subscribe
               </Button>
-            </Input.Group>
+            </Space.Compact>
           </div>
         </div>
 
