@@ -58,6 +58,7 @@ npx wrangler d1 execute multiversal-prod --remote --file=drizzle/migrations/[MIG
 ### 4. Environment Configuration
 
 #### Local Development (.env.local)
+
 ```env
 # For local development with SQLite
 DATABASE_URL="./data/multiversal.db"
@@ -73,6 +74,7 @@ GITHUB_CLIENT_SECRET="your-github-client-secret"
 ```
 
 #### Production (Cloudflare Secrets)
+
 ```bash
 # Set production secrets
 wrangler secret put NEXTAUTH_SECRET
@@ -100,6 +102,7 @@ multiversal/
 ## 📊 Database Schema Overview
 
 ### Core Tables
+
 - **users** - User profiles and authentication data
 - **works** - Content (poetry, stories, art, music)
 - **comments** - User comments on works
@@ -110,6 +113,7 @@ multiversal/
 - **communities** - User groups and communities
 
 ### Auth.js Compatible Tables
+
 - **sessions** - User session management
 - **accounts** - OAuth account linking
 - **verification_tokens** - Email verification
@@ -117,6 +121,7 @@ multiversal/
 ## 🔧 Configuration Files
 
 ### drizzle.config.ts
+
 ```typescript
 import type { Config } from "drizzle-kit";
 
@@ -133,6 +138,7 @@ export default {
 ```
 
 ### wrangler.jsonc (D1 Configuration)
+
 ```jsonc
 {
   "d1_databases": [
@@ -153,6 +159,7 @@ export default {
 ## 🏃‍♂️ Development Workflow
 
 ### 1. Schema Changes
+
 ```bash
 # Edit src/lib/db/schema.js
 # Generate new migration
@@ -163,6 +170,7 @@ npx wrangler d1 execute multiversal-prod --local --file=drizzle/migrations/[NEW_
 ```
 
 ### 2. Local Development
+
 ```bash
 # Start development server
 npm run dev
@@ -172,6 +180,7 @@ npm run dev
 ```
 
 ### 3. Production Deployment
+
 ```bash
 # Apply migrations to production
 npx wrangler d1 execute multiversal-prod --remote --file=drizzle/migrations/[MIGRATION].sql
@@ -243,17 +252,20 @@ const newWork = await db
 ## 🚨 Important Considerations
 
 ### Development vs Production
+
 - **Local Development**: Uses better-sqlite3 with file-based SQLite
 - **Production**: Uses Cloudflare D1 with identical schema
 - **Schema Compatibility**: Both use SQLite dialect ensuring consistency
 
 ### Migration Strategy
+
 1. Always test migrations locally first
 2. Backup production data before applying migrations
 3. Use Cloudflare's Time Travel feature for point-in-time recovery
 4. Apply migrations during low-traffic periods
 
 ### Performance Optimization
+
 - Use indexes for frequently queried columns
 - Implement proper pagination for large datasets
 - Cache frequently accessed data using SWR
@@ -262,6 +274,7 @@ const newWork = await db
 ## 🔍 Monitoring and Debugging
 
 ### Local Development
+
 ```bash
 # View local database
 npx drizzle-kit studio
@@ -271,6 +284,7 @@ npx wrangler d1 execute multiversal-prod --local --command="SELECT COUNT(*) FROM
 ```
 
 ### Production Monitoring
+
 ```bash
 # View production data
 npx wrangler d1 execute multiversal-prod --remote --command="SELECT COUNT(*) FROM users"
@@ -280,6 +294,7 @@ npx wrangler d1 info multiversal-prod
 ```
 
 ### Debugging Tips
+
 - Use `console.log` in API routes to debug queries
 - Check Cloudflare Workers logs in the dashboard
 - Use Drizzle's query logging in development
@@ -304,6 +319,7 @@ npx wrangler d1 info multiversal-prod
 5. **Local vs production inconsistencies**: Check environment variables
 
 ### Getting Help
+
 - [Cloudflare Community Discord](https://discord.cloudflare.com/)
 - [Drizzle Discord](https://discord.gg/yfjTbVXMW4)
 - [GitHub Issues](https://github.com/cloudflare/workers-sdk/issues)

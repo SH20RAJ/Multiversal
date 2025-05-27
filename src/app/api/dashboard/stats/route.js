@@ -1,6 +1,6 @@
-export const runtime = 'edge';
-import { db } from '@/lib/db';
-import { works, users } from '@/lib/db/schema';
+export const runtime = 'nodejs';
+import { db } from '@/lib/db/index.js';
+import { works, users } from '@/lib/db/schema.js';
 import { eq, and, sql, desc, count } from 'drizzle-orm';
 import { auth } from '@/lib/auth';
 

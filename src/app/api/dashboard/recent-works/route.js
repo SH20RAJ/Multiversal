@@ -1,8 +1,10 @@
-import { db } from '../../../../lib/db';
-import { works } from '../../../../lib/db/schema';
+// Use the Node.js runtime for database operations
+export const runtime = 'nodejs';
+
+import { db } from '@/lib/db/index.js';
+import { works } from '@/lib/db/schema.js';
 import { eq, desc } from 'drizzle-orm';
-import { auth } from '../../../../lib/auth';
-export const runtime = 'edge';
+import { auth } from '@/lib/auth';
 
 export async function GET(request) {
     try {

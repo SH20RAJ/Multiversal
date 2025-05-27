@@ -44,8 +44,9 @@
 	 * Note: Use secrets to store sensitive data.
 	 * https://developers.cloudflare.com/workers/configuration/secrets/
 	 * Run: wrangler secret put NEXTAUTH_SECRET
-	 * Run: wrangler secret put GITHUB_CLIENT_ID
-	 * Run: wrangler secret put GITHUB_CLIENT_SECRET
+	 * Run: wrangler secret put AUTH_GOOGLE_ID
+	 * Run: wrangler secret put AUTH_GOOGLE_SECRET
+	 * Run: wrangler secret put AUTH_SECRET
 	 */
 	/**
 	 * Smart Placement

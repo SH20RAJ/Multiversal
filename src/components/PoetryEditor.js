@@ -28,7 +28,7 @@ import {
     AlignRight,
     CornerDownLeft,
     Link as LinkIcon,
-    LinkOff,
+    Unlink2,
     Sparkles,
     PanelLeft,
     HighlighterIcon,
@@ -162,7 +162,7 @@ const MenuBar = ({ editor }) => {
                     <Button
                         type="text"
                         size="small"
-                        icon={<LinkOff className="w-3.5 h-3.5" />}
+                        icon={<Unlink2 className="w-3.5 h-3.5" />}
                         onClick={removeLink}
                         disabled={!editor.isActive('link')}
                     />

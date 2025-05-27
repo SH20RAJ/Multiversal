@@ -5,11 +5,13 @@ This directory contains the complete Cloudflare D1 database setup with Drizzle O
 ## 🚀 Quick Start
 
 ### 1. Automatic Setup (Recommended)
+
 ```bash
 npm run d1:setup
 ```
 
 This interactive script will:
+
 - Create your D1 database
 - Update configuration files
 - Generate and apply migrations
@@ -18,11 +20,13 @@ This interactive script will:
 ### 2. Manual Setup
 
 #### Create D1 Database
+
 ```bash
 npx wrangler d1 create multiversal-prod
 ```
 
 #### Update Configuration
+
 Copy the output from the above command and update `wrangler.jsonc`:
 
 ```jsonc
@@ -39,6 +43,7 @@ Copy the output from the above command and update `wrangler.jsonc`:
 ```
 
 #### Generate and Apply Migrations
+
 ```bash
 # Generate migrations from schema
 npm run db:generate
@@ -50,6 +55,7 @@ npm run db:migrate:remote
 ## 📋 Available Commands
 
 ### Database Operations
+
 - `npm run db:generate` - Generate new migration from schema
 - `npm run db:migrate:local` - Apply migrations to local development
 - `npm run db:migrate:remote` - Apply migrations to production
@@ -60,6 +66,7 @@ npm run db:migrate:remote
 - `npm run db:studio` - Open Drizzle Studio for database inspection
 
 ### D1 Management
+
 - `npm run d1:setup` - Interactive D1 setup
 - `npm run d1:create` - Create new D1 database
 - `npm run d1:list` - List all D1 databases
@@ -70,6 +77,7 @@ npm run db:migrate:remote
 ### Environment Variables
 
 #### Local Development (.env.local)
+
 ```env
 DATABASE_URL="./data/multiversal.db"
 NODE_ENV="development"
@@ -80,6 +88,7 @@ GITHUB_CLIENT_SECRET="your-github-client-secret"
 ```
 
 #### Production (Cloudflare Secrets)
+
 ```bash
 wrangler secret put NEXTAUTH_SECRET
 wrangler secret put GITHUB_CLIENT_ID
@@ -89,6 +98,7 @@ wrangler secret put GITHUB_CLIENT_SECRET
 ### Database Configuration
 
 #### drizzle.config.ts
+
 ```typescript
 export default {
   schema: "./src/lib/db/schema.js",
@@ -103,6 +113,7 @@ export default {
 ```
 
 #### wrangler.jsonc
+
 ```jsonc
 {
   "d1_databases": [
@@ -150,6 +161,7 @@ import { db } from '@/lib/db';
 ## 📊 Database Schema
 
 ### Core Tables
+
 - **users** - User profiles and authentication
 - **works** - Content (poetry, stories, art, music)
 - **comments** - User comments on works
@@ -160,6 +172,7 @@ import { db } from '@/lib/db';
 - **communities** - User groups
 
 ### Auth.js Tables
+
 - **sessions** - User sessions
 - **accounts** - OAuth accounts
 - **verification_tokens** - Email verification
@@ -169,6 +182,7 @@ import { db } from '@/lib/db';
 ### Making Schema Changes
 
 1. **Edit Schema**
+
    ```javascript
    // src/lib/db/schema.js
    export const newTable = sqliteTable('new_table', {
@@ -178,21 +192,25 @@ import { db } from '@/lib/db';
    ```
 
 2. **Generate Migration**
+
    ```bash
    npm run db:generate
    ```
 
 3. **Apply Locally**
+
    ```bash
    npm run db:migrate:local
    ```
 
 4. **Test Changes**
+
    ```bash
    npm run dev
    ```
 
 5. **Apply to Production**
+
    ```bash
    npm run db:migrate:remote
    ```
@@ -200,6 +218,7 @@ import { db } from '@/lib/db';
 ## 🔍 Monitoring and Debugging
 
 ### Local Development
+
 ```bash
 # View database in Drizzle Studio
 npm run db:studio
@@ -212,6 +231,7 @@ npx wrangler d1 execute multiversal-prod --local --command="SELECT * FROM users 
 ```
 
 ### Production Monitoring
+
 ```bash
 # Check production database info
 npm run d1:info

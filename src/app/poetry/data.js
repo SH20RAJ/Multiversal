@@ -1,7 +1,6 @@
-import { sql } from '@vercel/postgres';
-import { db } from '../../../lib/db';
-import { poems as poemsTable } from '../../../lib/db/schema';
-import { eq } from 'drizzle-orm';
+import { db } from '@/lib/db/index.js';
+import { works, users } from '@/lib/db/schema.js';
+import { eq, and, sql } from 'drizzle-orm';
 import { cache } from 'react';
 
 // Reusable data fetching function optimized with React cache
@@ -10,19 +9,19 @@ export const getPoem = cache(async (id) => {
         // Fetch poem with the author information
         const poem = await db
             .select({
-                id: poemsTable.id,
-                title: poemsTable.title,
-                content: poemsTable.content,
-                createdAt: poemsTable.createdAt,
-                updatedAt: poemsTable.updatedAt,
-                type: poemsTable.type,
-                authorId: poemsTable.authorId,
-                authorName: sql`users.name`,
-                authorImage: sql`users.image`,
+                id: works.id,
+                title: works.title,
+                content: works.content,
+                createdAt: works.createdAt,
+                updatedAt: works.updatedAt,
+                type: works.type,
+                authorId: works.authorId,
+                authorName: users.name,
+                authorImage: users.image,
             })
-            .from(poemsTable)
-            .leftJoin('users', eq(poemsTable.authorId, sql`users.id`))
-            .where(eq(poemsTable.id, id))
+            .from(works)
+            .leftJoin(users, eq(works.authorId, users.id))
+            .where(and(eq(works.id, id), eq(works.type, 'poetry')))
             .limit(1);
 
         return poem[0] || null;
@@ -38,17 +37,18 @@ export const getFeaturedPoems = cache(async (limit = 5) => {
         // Fetch featured poems with author information
         const poems = await db
             .select({
-                id: poemsTable.id,
-                title: poemsTable.title,
-                excerpt: sql`SUBSTRING(${poemsTable.content}, 1, 150)`,
-                createdAt: poemsTable.createdAt,
-                type: poemsTable.type,
-                authorId: poemsTable.authorId,
-                authorName: sql`users.name`,
-                authorImage: sql`users.image`,
+                id: works.id,
+                title: works.title,
+                excerpt: sql`SUBSTRING(${works.content}, 1, 150)`,
+                createdAt: works.createdAt,
+                type: works.type,
+                authorId: works.authorId,
+                authorName: users.name,
+                authorImage: users.image,
             })
-            .from(poemsTable)
-            .leftJoin('users', eq(poemsTable.authorId, sql`users.id`))
+            .from(works)
+            .leftJoin(users, eq(works.authorId, users.id))
+            .where(eq(works.type, 'poetry'))
             .orderBy(sql`RANDOM()`)
             .limit(limit);
 

@@ -23,30 +23,30 @@ function createDatabaseConnection(env = {}) {
     console.log('🔗 Connected to Cloudflare D1 database');
     return drizzleD1(env.DB, { schema });
   }
-  
+
   // Development: Local SQLite database
   if (typeof window === 'undefined') {
     const dbPath = process.env.DATABASE_URL || path.join(process.cwd(), 'data', 'multiversal.db');
-    
+
     // Ensure the data directory exists
     const dataDir = path.dirname(dbPath);
     if (!fs.existsSync(dataDir)) {
       fs.mkdirSync(dataDir, { recursive: true });
     }
-    
+
     // Initialize SQLite database
     const sqlite = new Database(dbPath);
-    
+
     // Enable WAL mode for better performance
     sqlite.pragma('journal_mode = WAL');
-    
+
     // Enable foreign keys
     sqlite.pragma('foreign_keys = ON');
-    
+
     console.log('🔗 Connected to local SQLite database');
     return drizzle(sqlite, { schema });
   }
-  
+
   throw new Error('❌ Could not establish database connection');
 }
 
