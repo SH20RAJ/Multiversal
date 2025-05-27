@@ -36,12 +36,12 @@ function ErrorPageContent() {
 
   return (
     <div className="flex min-h-[80vh] items-center justify-center p-4">
-      <Card 
-        className="w-full max-w-md overflow-hidden rounded-xl shadow-lg" 
+      <Card
+        className="w-full max-w-md overflow-hidden rounded-xl shadow-lg"
         bordered={false}
-        style={{ 
-          borderRadius: 'var(--border-radius-cute)', 
-          boxShadow: 'var(--shadow-cute)' 
+        style={{
+          borderRadius: 'var(--border-radius-cute)',
+          boxShadow: 'var(--shadow-cute)'
         }}
       >
         <div className="flex flex-col items-center justify-center space-y-6 p-6">

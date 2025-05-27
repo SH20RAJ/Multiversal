@@ -47,7 +47,7 @@ export async function runMigrations() {
 export async function seedDatabase() {
   try {
     console.log('Seeding database with sample data...');
-    
+
     // Check if users already exist
     const existingUsers = await db.select().from(schema.users).limit(1);
     if (existingUsers.length > 0) {

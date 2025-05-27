@@ -1,12 +1,12 @@
 'use client';
 import React, { useState, Suspense } from 'react';
-import { 
-  Layout, 
-  Typography, 
-  Card, 
-  Row, 
-  Col, 
-  Space, 
+import {
+  Layout,
+  Typography,
+  Card,
+  Row,
+  Col,
+  Space,
   Input,
   Select,
   Button,
@@ -16,7 +16,7 @@ import {
   Empty,
   Spin
 } from 'antd';
-import { 
+import {
   Search,
   Filter,
   Heart,
@@ -87,7 +87,7 @@ function ExplorePageContent() {
   return (
     <Layout className="min-h-screen bg-gray-50">
       <NavigationHeader />
-      
+
       <Content className="pt-8">
         <div className="max-w-7xl mx-auto px-6">
           {/* Header */}
@@ -199,8 +199,8 @@ function ExplorePageContent() {
               ))
             ) : !featuredContent || featuredContent.length === 0 ? (
               <Col span={24}>
-                <Empty 
-                  description="No content found" 
+                <Empty
+                  description="No content found"
                   image={Empty.PRESENTED_IMAGE_SIMPLE}
                   className="my-16"
                 />
@@ -216,7 +216,7 @@ function ExplorePageContent() {
                     {/* Content Header with Gradient */}
                     <div className={`h-32 bg-gradient-to-r ${content.gradient} relative`}>
                       <div className="absolute top-4 left-4">
-                        <Tag 
+                        <Tag
                           color={getTypeColor(content.type)}
                           icon={getTypeIcon(content.type)}
                           className="rounded-lg"
@@ -241,7 +241,7 @@ function ExplorePageContent() {
                       <Title level={4} className="text-gray-900 mb-3 line-clamp-2">
                         {content.title}
                       </Title>
-                      
+
                       <Paragraph className="text-gray-600 mb-4 line-clamp-3">
                         {content.excerpt}
                       </Paragraph>
@@ -287,7 +287,7 @@ function ExplorePageContent() {
 
           {/* Load More */}
           <div className="text-center mt-12 mb-8">
-            <Button 
+            <Button
               size="large"
               type="primary"
               ghost
@@ -299,8 +299,8 @@ function ExplorePageContent() {
         </div>
       </Content>
 
-      <FloatButton.BackTop 
-        style={{ right: 24, bottom: 24 }} 
+      <FloatButton.BackTop
+        style={{ right: 24, bottom: 24 }}
         className="shadow-lg"
       />
     </Layout>

@@ -14,14 +14,14 @@ const { TabPane } = Tabs;
 export default function Dashboard() {
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [activeTab, setActiveTab] = useState('overview');
-    
+
     // Get authentication status
     const { user: authUser, isLoading: authLoading, isAuthenticated } = useAuth();
-    
+
     // Fetch dashboard data using SWR
     const { stats: dashboardStats, isLoading: statsLoading } = useDashboardStats();
     const { recentWorks: fetchedRecentWorks, isLoading: worksLoading } = useRecentWorks();
-    
+
     // Default values while loading or if data is not available
     const userStats = dashboardStats || {
         name: "Loading...",
@@ -38,7 +38,7 @@ export default function Dashboard() {
         weeklyGoal: 3,
         weeklyProgress: 0
     };
-    
+
     // Format user stats from the API response
     const formattedUserStats = {
         name: userStats.name || "Anonymous Creator",

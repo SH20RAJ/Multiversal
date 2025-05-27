@@ -14,7 +14,7 @@ function SignInContent() {
   const searchParams = useSearchParams()
   const { isAuthenticated } = useAuth()
   const callbackUrl = searchParams.get('callbackUrl') || '/'
-
+  
   // If already authenticated, redirect to callback URL
   if (isAuthenticated) {
     router.push(callbackUrl)
@@ -32,12 +32,12 @@ function SignInContent() {
 
   return (
     <div className="flex min-h-[80vh] items-center justify-center p-4">
-      <Card
-        className="w-full max-w-md overflow-hidden rounded-xl shadow-lg"
+      <Card 
+        className="w-full max-w-md overflow-hidden rounded-xl shadow-lg" 
         bordered={false}
-        style={{
-          borderRadius: 'var(--border-radius-cute)',
-          boxShadow: 'var(--shadow-cute)'
+        style={{ 
+          borderRadius: 'var(--border-radius-cute)', 
+          boxShadow: 'var(--shadow-cute)' 
         }}
       >
         <div className="flex flex-col items-center justify-center space-y-6 px-2 py-4">
@@ -49,7 +49,7 @@ function SignInContent() {
           </div>
 
           <Space direction="vertical" className="w-full">
-            <Button
+            <Button 
               icon={<LogIn size={18} />}
               block
               size="large"
@@ -67,7 +67,7 @@ function SignInContent() {
               Continue with Google
             </Button>
 
-            <Button
+            <Button 
               icon={<Github size={18} />}
               block
               size="large"
@@ -78,8 +78,8 @@ function SignInContent() {
             >
               Continue with GitHub
             </Button>
-
-            <Button
+            
+            <Button 
               icon={<Mail size={18} />}
               block
               size="large"
@@ -92,7 +92,7 @@ function SignInContent() {
             </Button>
 
             <Divider plain>Or</Divider>
-
+            
             <div className="text-center">
               <Text>
                 Don't have an account?{' '}
@@ -113,12 +113,12 @@ export default function SignIn() {
   return (
     <Suspense fallback={
       <div className="flex min-h-[80vh] items-center justify-center p-4">
-        <Card
-          className="w-full max-w-md overflow-hidden rounded-xl shadow-lg"
+        <Card 
+          className="w-full max-w-md overflow-hidden rounded-xl shadow-lg" 
           bordered={false}
-          style={{
-            borderRadius: 'var(--border-radius-cute)',
-            boxShadow: 'var(--shadow-cute)'
+          style={{ 
+            borderRadius: 'var(--border-radius-cute)', 
+            boxShadow: 'var(--shadow-cute)' 
           }}
         >
           <div className="flex items-center justify-center py-12">
