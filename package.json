@@ -4,6 +4,9 @@
 	"private": true,
 	"scripts": {
 		"dev": "next dev --turbopack",
+		"dev:d1": "wrangler pages dev --d1=multiversal-prod -- npm run dev",
+		"dev:d1:persist": "wrangler pages dev --d1=multiversal-prod --persist -- npm run dev",
+		"dev:with-d1": "./scripts/run-with-d1.sh",
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
@@ -21,7 +24,14 @@
 		"d1:setup": "node scripts/setup-d1.js",
 		"d1:create": "wrangler d1 create",
 		"d1:list": "wrangler d1 list",
-		"d1:info": "wrangler d1 info multiversal-prod"
+		"d1:info": "wrangler d1 info multiversal-prod",
+		"d1:init": "node scripts/init-d1-local.js",
+		"d1:dev-config": "node scripts/init-d1-dev.js",
+		"d1:direct-sql": "wrangler d1 execute multiversal-prod --file=./drizzle/d1-schema.sql --local",
+		"d1:direct-sql:remote": "wrangler d1 execute multiversal-prod --file=./drizzle/d1-schema.sql",
+		"d1:seed": "node scripts/seed-d1.js --env=local",
+		"d1:seed:remote": "node scripts/seed-d1.js --env=remote",
+		"d1:test": "wrangler d1 execute multiversal-prod --command='SELECT name FROM sqlite_schema WHERE type=\"table\"' --local"
 	},
 	"dependencies": {
 		"@ant-design/nextjs-registry": "^1.0.2",

@@ -1,11 +1,10 @@
 'use client';
- export const runtime = 'edge';
- 
+
 import React, { useState } from 'react';
 import { Layout, Typography, Card, Avatar, Button, Space, Row, Col, Tabs, List, Tag, Divider, Rate, Badge, Tooltip, Modal, Form, Input, Select } from 'antd';
 import { Edit3, Eye, Heart, MessageCircle, Share2, Star, BookOpen, Shield, Video, Calendar, MapPin, Link, Twitter, Instagram, Linkedin, UserPlus, Trophy } from 'lucide-react';
-import NavigationHeader from '../../../components/NavigationHeader';
-import ContentCard from '../../../components/ContentCard';
+import NavigationHeader from '@/components/NavigationHeader';
+import ContentCard from '@/components/ContentCard';
 
 const { Content } = Layout;
 const { Title, Text, Paragraph } = Typography;

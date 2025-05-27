@@ -13,7 +13,7 @@ export async function GET() {
         // Get Cloudflare context and database connection
         const { env } = getCloudflareContext();
         const db = getDatabase(env);
-        
+
         // Get featured works with their author information
         const featuredWorks = await db.select({
             id: works.id,

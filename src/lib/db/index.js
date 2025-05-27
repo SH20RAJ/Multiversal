@@ -1,29 +1,29 @@
-// Edge runtime database connection for Cloudflare D1
-// This module is optimized for edge runtime environments
+// Universal database connection for edge runtime (Cloudflare D1)
+// This module handles connections to D1 in Cloudflare environment
 
 import { drizzle } from 'drizzle-orm/d1';
-import { eq, desc } from 'drizzle-orm';
+import { eq, desc, and, sql } from 'drizzle-orm';
 import * as schema from './schema.js';
 
 /**
- * Create database instance for edge runtime (Cloudflare D1 only)
- * In production (Cloudflare Workers), env.DB will contain the D1 binding
+ * Create database instance for Cloudflare D1
+ * - Works only in edge runtime (Cloudflare Workers/Pages)
  */
 function createDatabaseConnection(env = {}) {
-  // Production: Cloudflare D1 database
+  // Check if we have a D1 binding
   if (env?.DB && typeof env.DB.prepare === 'function') {
     console.log('🔗 Connected to Cloudflare D1 database');
     return drizzle(env.DB, { schema });
   }
 
-  // Development: Mock database or throw error
-  // In development, you should use wrangler dev to get D1 binding
-  throw new Error('❌ D1 database binding not available. Use `wrangler pages dev` for local development.');
+  // Fallback error for edge runtime without D1 binding
+  throw new Error('❌ D1 database binding not available. Use `wrangler pages dev` for local development with D1.');
 }
 
 /**
- * Get database instance for edge runtime
- * This function should be called with the request's environment in API routes
+ * Get database instance for Cloudflare D1
+ * In API routes with edge runtime, pass the env from getCloudflareContext()
+ * In server components, use getCloudflareContext({async: true})
  */
 export function getDatabase(env = {}) {
   return createDatabaseConnection(env);

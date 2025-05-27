@@ -15,7 +15,7 @@ export async function GET(request) {
         }
 
         const userId = session.user.id;
-        
+
         // Get Cloudflare environment for D1 database access
         const { env } = getCloudflareContext();
         const db = getDatabase(env);

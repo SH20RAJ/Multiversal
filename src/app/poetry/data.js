@@ -10,7 +10,7 @@ export const getPoem = cache(async (id) => {
         // Get Cloudflare context and database connection
         const { env } = await getCloudflareContext({ async: true });
         const db = getDatabase(env);
-        
+
         // Fetch poem with the author information
         const poem = await db
             .select({
@@ -42,7 +42,7 @@ export const getFeaturedPoems = cache(async (limit = 5) => {
         // Get Cloudflare context and database connection
         const { env } = await getCloudflareContext({ async: true });
         const db = getDatabase(env);
-        
+
         // Fetch featured poems with author information
         const poems = await db
             .select({
