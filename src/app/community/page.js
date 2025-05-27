@@ -300,7 +300,7 @@ export default function Community() {
                         <Card
                           style={{ height: '100%' }}
                           actions={[
-                            <Button type="primary" size="small">Join Challenge</Button>
+                            <Button key="join" type="primary" size="small">Join Challenge</Button>
                           ]}
                         >
                           <Card.Meta
@@ -349,7 +349,7 @@ export default function Community() {
                     renderItem={(event) => (
                       <List.Item
                         actions={[
-                          <Button type="primary" size="small">Join Event</Button>
+                          <Button key="join-event" type="primary" size="small">Join Event</Button>
                         ]}
                       >
                         <List.Item.Meta

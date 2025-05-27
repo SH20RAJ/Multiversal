@@ -2,8 +2,8 @@
 import React, { useState } from 'react';
 import { Layout, Typography, Card, Avatar, Button, Space, Row, Col, Tabs, List, Tag, Divider, Rate, Badge, Tooltip, Modal, Form, Input, Select } from 'antd';
 import { Edit3, Eye, Heart, MessageCircle, Share2, Star, BookOpen, Shield, Video, Calendar, MapPin, Link, Twitter, Instagram, Linkedin, UserPlus, Trophy } from 'lucide-react';
-import NavigationHeader from '../../components/NavigationHeader';
-import ContentCard from '../../components/ContentCard';
+import NavigationHeader from '../../../components/NavigationHeader';
+import ContentCard from '../../../components/ContentCard';
 
 const { Content } = Layout;
 const { Title, Text, Paragraph } = Typography;
@@ -191,7 +191,7 @@ export default function Profile() {
                     <Button 
                       type={isFollowing ? "default" : "primary"}
                       size="large"
-                      icon={<UserPlus />}
+                      icon={<UserPlus className="w-4 h-4" />}
                       onClick={handleFollow}
                     >
                       {isFollowing ? 'Following' : 'Follow'}
@@ -254,15 +254,15 @@ export default function Profile() {
                 </Paragraph>
                 <Space direction="vertical" size="small" style={{ width: '100%' }}>
                   <div>
-                    <MapPin style={{ marginRight: '8px', color: '#666' }} />
+                    <MapPin className="w-4 h-4" style={{ marginRight: '8px', color: '#666' }} />
                     <Text type="secondary">{profile.location}</Text>
                   </div>
                   <div>
-                    <Calendar style={{ marginRight: '8px', color: '#666' }} />
+                    <Calendar className="w-4 h-4" style={{ marginRight: '8px', color: '#666' }} />
                     <Text type="secondary">Joined {profile.joinDate}</Text>
                   </div>
                   <div>
-                    <Link style={{ marginRight: '8px', color: '#666' }} />
+                    <Link className="w-4 h-4" style={{ marginRight: '8px', color: '#666' }} />
                     <a href={`https://${profile.website}`} target="_blank" rel="noopener noreferrer">
                       {profile.website}
                     </a>
@@ -292,7 +292,7 @@ export default function Profile() {
                   renderItem={achievement => (
                     <List.Item style={{ padding: '8px 0' }}>
                       <Text style={{ fontSize: '14px' }}>
-                        <Trophy style={{ color: '#faad14', marginRight: '8px' }} />
+                        <Trophy className="w-4 h-4" style={{ color: '#faad14', marginRight: '8px' }} />
                         {achievement}
                       </Text>
                     </List.Item>
@@ -341,7 +341,7 @@ export default function Profile() {
                             <div>
                               <Paragraph style={{ margin: '8px 0' }}>{review.comment}</Paragraph>
                               <Text type="secondary" style={{ fontSize: '12px' }}>
-                                Review for "{review.work}" • {review.date}
+                                Review for &quot;{review.work}&quot; • {review.date}
                               </Text>
                             </div>
                           }
@@ -353,7 +353,7 @@ export default function Profile() {
 
                 <TabPane tab={
                   <span>
-                    <UserPlus />
+                    <UserPlus className="w-4 h-4" />
                     Followers ({profile.followers.toLocaleString()})
                   </span>
                 } key="followers">

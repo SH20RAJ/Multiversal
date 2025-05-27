@@ -20,7 +20,7 @@ import {
   Form,
   message
 } from 'antd';
-import { Plus, FileText, Shield, Video, Send, Star, Trophy, Heart } from 'lucide-react';
+import { Plus, FileText, Shield, Video, Send, Star, Trophy, Heart, Upload as UploadIcon } from 'lucide-react';
 
 const { Title, Paragraph, Text } = Typography;
 const { TextArea } = Input;
@@ -139,7 +139,7 @@ export default function CreatorDashboard() {
           <Card 
             title="Your Impact" 
             style={{ marginBottom: 24, borderRadius: 12 }}
-            extra={<TrophyOutlined style={{ color: '#ffd700' }} />}
+            extra={<Trophy className="w-5 h-5" style={{ color: '#ffd700' }} />}
           >
             <Row gutter={16}>
               <Col span={12}>
@@ -398,7 +398,7 @@ export default function CreatorDashboard() {
                   label="Attachments (Optional)"
                 >
                   <Upload {...uploadProps} listType="text">
-                    <Button icon={<UploadOutlined />}>
+                    <Button icon={<UploadIcon className="w-4 h-4" />}>
                       Upload Audio/Image
                     </Button>
                   </Upload>
