@@ -1,14 +1,14 @@
 'use client'
 
-import { useState } from 'react'
-import { Card, Button, Divider, Space, Typography } from 'antd'
+import { useState, Suspense } from 'react'
+import { Card, Button, Divider, Space, Typography, Spin } from 'antd'
 import { signInWithProvider, useAuth } from '../../../lib/auth-client'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Github, Mail, LogIn } from 'lucide-react'
 
 const { Title, Text, Paragraph } = Typography
 
-export default function SignIn() {
+function SignInContent() {
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -105,5 +105,30 @@ export default function SignIn() {
         </div>
       </Card>
     </div>
+  )
+}
+
+// Wrap the SignInContent component with Suspense
+export default function SignIn() {
+  return (
+    <Suspense fallback={
+      <div className="flex min-h-[80vh] items-center justify-center p-4">
+        <Card 
+          className="w-full max-w-md overflow-hidden rounded-xl shadow-lg" 
+          bordered={false}
+          style={{ 
+            borderRadius: 'var(--border-radius-cute)', 
+            boxShadow: 'var(--shadow-cute)' 
+          }}
+        >
+          <div className="flex items-center justify-center py-12">
+            <Spin size="large" />
+            <Typography.Title level={4} className="ml-3">Loading...</Typography.Title>
+          </div>
+        </Card>
+      </div>
+    }>
+      <SignInContent />
+    </Suspense>
   )
 }

@@ -1,14 +1,14 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { Card, Typography, Space, Button } from 'antd'
+import { Card, Typography, Space, Button, Spin } from 'antd'
 import { AlertTriangle, ArrowLeft, Home } from 'lucide-react'
 import Link from 'next/link'
 
 const { Title, Paragraph } = Typography
 
-export default function ErrorPage() {
+function ErrorPageContent() {
   const searchParams = useSearchParams()
   const error = searchParams.get('error')
 
@@ -69,5 +69,23 @@ export default function ErrorPage() {
         </div>
       </Card>
     </div>
+  )
+}
+
+// Wrap with Suspense to handle useSearchParams
+export default function ErrorPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex min-h-screen items-center justify-center">
+        <Card className="w-full max-w-md shadow-lg">
+          <div className="flex items-center justify-center py-8">
+            <Spin size="large" />
+            <Typography.Text className="ml-3">Loading...</Typography.Text>
+          </div>
+        </Card>
+      </div>
+    }>
+      <ErrorPageContent />
+    </Suspense>
   )
 }

@@ -1,8 +1,11 @@
 'use client';
 import React, { useState } from 'react';
-import { Layout, Typography, Card, Avatar, Button, Space, Row, Col, Statistic, Progress, List, Tag, Tabs, Calendar, Badge, Table } from 'antd';
+import { Layout, Typography, Card, Avatar, Button, Space, Row, Col, Statistic, Progress, List, Tag, Tabs, Calendar, Badge, Table, Spin } from 'antd';
 import { Edit3, Eye, Heart, MessageCircle, Share2, Trophy, Rocket, BookOpen, Shield, Video, Star, Bell, Settings, Plus, BarChart } from 'lucide-react';
 import NavigationHeader from '../../components/NavigationHeader';
+import { useDashboardStats, useRecentWorks, useCurrentUser } from '../../lib/api-client';
+import { useAuth } from '../../lib/auth-client';
+import { format } from 'date-fns';
 
 const { Content, Sider } = Layout;
 const { Title, Text, Paragraph } = Typography;
@@ -11,67 +14,70 @@ const { TabPane } = Tabs;
 export default function Dashboard() {
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [activeTab, setActiveTab] = useState('overview');
-
-    // Mock data for the dashboard
-    const userStats = {
-        name: "Alex Creator",
-        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Alex",
-        title: "Multi-Genre Storyteller",
-        joinDate: "January 2023",
-        level: "Pro Creator",
-        followers: 2847,
-        following: 432,
-        totalViews: 127483,
-        totalLikes: 8934,
-        totalComments: 2341,
-        publishedWorks: 76,
+    
+    // Get authentication status
+    const { user: authUser, isLoading: authLoading, isAuthenticated } = useAuth();
+    
+    // Fetch dashboard data using SWR
+    const { stats: dashboardStats, isLoading: statsLoading } = useDashboardStats();
+    const { recentWorks: fetchedRecentWorks, isLoading: worksLoading } = useRecentWorks();
+    
+    // Default values while loading or if data is not available
+    const userStats = dashboardStats || {
+        name: "Loading...",
+        image: "https://api.dicebear.com/7.x/avataaars/svg?seed=placeholder",
+        title: "...",
+        createdAt: new Date().toISOString(),
+        level: "Creator",
+        followers: 0,
+        following: 0,
+        totalViews: 0,
+        totalLikes: 0,
+        totalComments: 0,
+        publishedWorks: 0,
         weeklyGoal: 3,
-        weeklyProgress: 2
+        weeklyProgress: 0
+    };
+    
+    // Format user stats from the API response
+    const formattedUserStats = {
+        name: userStats.name || "Anonymous Creator",
+        avatar: userStats.image || "https://api.dicebear.com/7.x/avataaars/svg?seed=anonymous",
+        title: userStats.title || "Content Creator",
+        joinDate: userStats.createdAt ? format(new Date(userStats.createdAt), 'MMMM yyyy') : "Unknown",
+        level: userStats.premium ? "Pro Creator" : "Creator",
+        followers: userStats.followers || 0,
+        following: userStats.following || 0,
+        totalViews: userStats.totalViews || 0,
+        totalLikes: userStats.totalLikes || 0,
+        totalComments: userStats.totalComments || 0,
+        publishedWorks: userStats.publishedWorks || 0,
+        weeklyGoal: 3, // This could be from user preferences in the future
+        weeklyProgress: userStats.weeklyProgress || 0
     };
 
-    const recentWorks = [
+    // Format recent works from the API response
+    const recentWorks = fetchedRecentWorks ? fetchedRecentWorks.map(work => ({
+        id: work.id,
+        title: work.title,
+        type: work.type,
+        status: work.status,
+        publishDate: work.publishedAt ? format(new Date(work.publishedAt), 'MMM d, yyyy') : 'Not published',
+        views: work.views || 0,
+        likes: work.likes || 0,
+        comments: work.comments || 0,
+        trending: work.isTrending || false
+    })) : [
+        // Fallback data while loading
         {
             id: 1,
-            title: "The Digital Nomad's Lament",
-            type: "Poetry",
-            status: "Published",
-            publishDate: "2 days ago",
-            views: 234,
-            likes: 45,
-            comments: 12,
-            trending: true
-        },
-        {
-            id: 2,
-            title: "Midnight in Tokyo - Chapter 3",
-            type: "Story",
-            status: "Draft",
-            publishDate: "Not published",
+            title: "Loading...",
+            type: "Loading",
+            status: "Loading",
+            publishDate: "Loading",
             views: 0,
             likes: 0,
             comments: 0,
-            trending: false
-        },
-        {
-            id: 3,
-            title: "Acoustic Sessions Vol. 2",
-            type: "Music",
-            status: "Published",
-            publishDate: "1 week ago",
-            views: 892,
-            likes: 156,
-            comments: 43,
-            trending: true
-        },
-        {
-            id: 4,
-            title: "The Art of Slow Living",
-            type: "Essay",
-            status: "Published",
-            publishDate: "2 weeks ago",
-            views: 1247,
-            likes: 234,
-            comments: 89,
             trending: false
         }
     ];
@@ -183,38 +189,38 @@ export default function Dashboard() {
                 <Row gutter={[24, 24]}>
                     {/* Profile Card */}
                     <Col xs={24} lg={8}>
-                        <Card bordered={false} className="shadow-sm">
+                        <Card bordered={false} className="shadow-sm" loading={statsLoading}>
                             <div className="flex flex-col items-center text-center">
                                 <Avatar
-                                    src={userStats.avatar}
-                                    alt={userStats.name}
+                                    src={formattedUserStats.avatar}
+                                    alt={formattedUserStats.name}
                                     size={96}
                                     className="mb-4"
                                 />
-                                <Title level={3} className="mb-1">{userStats.name}</Title>
-                                <Text type="secondary" className="mb-3">{userStats.title}</Text>
+                                <Title level={3} className="mb-1">{formattedUserStats.name}</Title>
+                                <Text type="secondary" className="mb-3">{formattedUserStats.title}</Text>
                                 <Space className="mb-4">
-                                    <Tag color="blue">{userStats.level}</Tag>
-                                    <Tag>Joined {userStats.joinDate}</Tag>
+                                    <Tag color="blue">{formattedUserStats.level}</Tag>
+                                    <Tag>Joined {formattedUserStats.joinDate}</Tag>
                                 </Space>
                                 <div className="flex gap-6 mb-4">
                                     <div className="text-center">
-                                        <div className="text-lg font-semibold">{userStats.followers}</div>
+                                        <div className="text-lg font-semibold">{formattedUserStats.followers}</div>
                                         <div className="text-gray-500 text-sm">Followers</div>
                                     </div>
                                     <div className="text-center">
-                                        <div className="text-lg font-semibold">{userStats.following}</div>
+                                        <div className="text-lg font-semibold">{formattedUserStats.following}</div>
                                         <div className="text-gray-500 text-sm">Following</div>
                                     </div>
                                     <div className="text-center">
-                                        <div className="text-lg font-semibold">{userStats.publishedWorks}</div>
+                                        <div className="text-lg font-semibold">{formattedUserStats.publishedWorks}</div>
                                         <div className="text-gray-500 text-sm">Works</div>
                                     </div>
                                 </div>
                                 <div className="w-full mb-4">
                                     <div className="flex justify-between mb-2">
                                         <Text>Weekly Publishing Goal</Text>
-                                        <Text>{userStats.weeklyProgress}/{userStats.weeklyGoal}</Text>
+                                        <Text>{formattedUserStats.weeklyProgress}/{formattedUserStats.weeklyGoal}</Text>
                                     </div>
                                     <Progress
                                         percent={(userStats.weeklyProgress / userStats.weeklyGoal) * 100}
@@ -244,7 +250,7 @@ export default function Dashboard() {
                                 <Card bordered={false} className="shadow-sm text-center">
                                     <Statistic
                                         title="Views"
-                                        value={userStats.totalViews}
+                                        value={formattedUserStats.totalViews}
                                         prefix={<Eye size={16} />}
                                     />
                                 </Card>
@@ -253,7 +259,7 @@ export default function Dashboard() {
                                 <Card bordered={false} className="shadow-sm text-center">
                                     <Statistic
                                         title="Likes"
-                                        value={userStats.totalLikes}
+                                        value={formattedUserStats.totalLikes}
                                         prefix={<Heart size={16} />}
                                     />
                                 </Card>
@@ -262,7 +268,7 @@ export default function Dashboard() {
                                 <Card bordered={false} className="shadow-sm text-center">
                                     <Statistic
                                         title="Comments"
-                                        value={userStats.totalComments}
+                                        value={formattedUserStats.totalComments}
                                         prefix={<MessageCircle size={16} />}
                                     />
                                 </Card>
@@ -271,7 +277,7 @@ export default function Dashboard() {
                                 <Card bordered={false} className="shadow-sm text-center">
                                     <Statistic
                                         title="Works"
-                                        value={userStats.publishedWorks}
+                                        value={formattedUserStats.publishedWorks}
                                         prefix={<BookOpen size={16} />}
                                     />
                                 </Card>
@@ -285,13 +291,17 @@ export default function Dashboard() {
                                         <Button type="primary" className="mb-4" icon={<Plus size={16} />}>
                                             Create New Work
                                         </Button>
-                                        <Title level={4}>Recent Works</Title>
+                                        <div className="flex items-center justify-between">
+                                            <Title level={4}>Recent Works</Title>
+                                            {worksLoading && <Spin size="small" />}
+                                        </div>
                                         <Table
                                             dataSource={recentWorks}
                                             columns={columns}
                                             rowKey="id"
                                             pagination={false}
                                             className="mt-4"
+                                            loading={worksLoading}
                                         />
                                     </div>
                                 </TabPane>
