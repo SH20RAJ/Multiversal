@@ -1,3 +1,5 @@
+export const runtime = 'edge';
+
 'use client';
 import React, { useState } from 'react';
 import { Layout, Typography, Card, Avatar, Button, Space, Row, Col, Tabs, List, Tag, Divider, Rate, Badge, Tooltip, Modal, Form, Input, Select } from 'antd';
@@ -132,10 +134,10 @@ export default function Profile() {
   return (
     <Layout style={{ minHeight: '100vh', background: '#f0f2f5' }}>
       <NavigationHeader />
-      
+
       <Content style={{ marginTop: '64px' }}>
         {/* Cover Image */}
-        <div style={{ 
+        <div style={{
           height: '300px',
           backgroundImage: `url(${profile.coverImage})`,
           backgroundSize: 'cover',
@@ -153,13 +155,13 @@ export default function Profile() {
             <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
               <Row align="bottom">
                 <Col>
-                  <Avatar 
-                    src={profile.avatar} 
-                    size={120} 
-                    style={{ 
+                  <Avatar
+                    src={profile.avatar}
+                    size={120}
+                    style={{
                       border: '4px solid white',
                       marginRight: '24px'
-                    }} 
+                    }}
                   />
                 </Col>
                 <Col flex="auto">
@@ -188,7 +190,7 @@ export default function Profile() {
                 </Col>
                 <Col>
                   <Space>
-                    <Button 
+                    <Button
                       type={isFollowing ? "default" : "primary"}
                       size="large"
                       icon={<UserPlus className="w-4 h-4" />}
@@ -196,8 +198,8 @@ export default function Profile() {
                     >
                       {isFollowing ? 'Following' : 'Follow'}
                     </Button>
-                    <Button 
-                      size="large" 
+                    <Button
+                      size="large"
                       icon={<MessageCircle className="w-4 h-4" />}
                       onClick={() => setMessageModalVisible(true)}
                     >

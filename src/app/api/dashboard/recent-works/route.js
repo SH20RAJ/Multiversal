@@ -1,5 +1,5 @@
 // Use the Node.js runtime for database operations
-export const runtime = 'nodejs';
+export const runtime = 'edge';
 
 import { db } from '@/lib/db/index.js';
 import { works } from '@/lib/db/schema.js';

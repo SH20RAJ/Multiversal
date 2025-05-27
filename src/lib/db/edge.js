@@ -9,19 +9,19 @@ import * as schema from './schema.js';
  * This function only works with D1 database bindings
  */
 export function createEdgeDatabase(env = {}) {
-  // Production: Cloudflare D1 database
-  if (env?.DB && typeof env.DB.prepare === 'function') {
-    console.log('🔗 Connected to Cloudflare D1 database (edge)');
-    return drizzle(env.DB, { schema });
-  }
+    // Production: Cloudflare D1 database
+    if (env?.DB && typeof env.DB.prepare === 'function') {
+        console.log('🔗 Connected to Cloudflare D1 database (edge)');
+        return drizzle(env.DB, { schema });
+    }
 
-  // Fallback: throw error since edge runtime doesn't support local SQLite
-  throw new Error('D1 database binding not available in edge runtime. Make sure env.DB is properly configured.');
+    // Fallback: throw error since edge runtime doesn't support local SQLite
+    throw new Error('D1 database binding not available in edge runtime. Make sure env.DB is properly configured.');
 }
 
 // For API routes using edge runtime, we need to get the database from the request context
 export function getDatabase(env) {
-  return createEdgeDatabase(env);
+    return createEdgeDatabase(env);
 }
 
 // Export the schema for convenience
