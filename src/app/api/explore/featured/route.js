@@ -1,5 +1,6 @@
 export const runtime = 'edge';
-import { db } from '@/lib/db';
+import { getCloudflareContext } from '@opennextjs/cloudflare';
+import { getDatabase } from '@/lib/db/index.js';
 import { works, users } from '@/lib/db/schema';
 import { eq, and, sql, desc } from 'drizzle-orm';
 import { NextResponse } from 'next/server';
@@ -9,6 +10,10 @@ const CACHE_MAX_AGE = 300; // 5 minutes in seconds
 
 export async function GET() {
     try {
+        // Get Cloudflare context and database connection
+        const { env } = getCloudflareContext();
+        const db = getDatabase(env);
+        
         // Get featured works with their author information
         const featuredWorks = await db.select({
             id: works.id,

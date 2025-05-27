@@ -1,4 +1,5 @@
-import { db } from '@/lib/db/index.js';
+import { getCloudflareContext } from '@opennextjs/cloudflare';
+import { getDatabase } from '@/lib/db/index.js';
 import { works, users } from '@/lib/db/schema.js';
 import { eq, and, sql } from 'drizzle-orm';
 import { cache } from 'react';
@@ -6,6 +7,10 @@ import { cache } from 'react';
 // Reusable data fetching function optimized with React cache
 export const getPoem = cache(async (id) => {
     try {
+        // Get Cloudflare context and database connection
+        const { env } = await getCloudflareContext({ async: true });
+        const db = getDatabase(env);
+        
         // Fetch poem with the author information
         const poem = await db
             .select({
@@ -34,6 +39,10 @@ export const getPoem = cache(async (id) => {
 // Reusable data fetching function for featured poems
 export const getFeaturedPoems = cache(async (limit = 5) => {
     try {
+        // Get Cloudflare context and database connection
+        const { env } = await getCloudflareContext({ async: true });
+        const db = getDatabase(env);
+        
         // Fetch featured poems with author information
         const poems = await db
             .select({

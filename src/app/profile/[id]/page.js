@@ -1,5 +1,3 @@
-export const runtime = 'edge';
-
 'use client';
 import React, { useState } from 'react';
 import { Layout, Typography, Card, Avatar, Button, Space, Row, Col, Tabs, List, Tag, Divider, Rate, Badge, Tooltip, Modal, Form, Input, Select } from 'antd';

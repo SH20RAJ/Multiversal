@@ -1,10 +1,10 @@
-// Use the Node.js runtime for database operations
 export const runtime = 'edge';
 
-import { db } from '@/lib/db/index.js';
+import { getDatabase } from '@/lib/db/index.js';
 import { works } from '@/lib/db/schema.js';
 import { eq, desc } from 'drizzle-orm';
 import { auth } from '@/lib/auth';
+import { getCloudflareContext } from '@opennextjs/cloudflare';
 
 export async function GET(request) {
     try {
@@ -16,6 +16,10 @@ export async function GET(request) {
         }
 
         const userId = session.user.id;
+
+        // Get Cloudflare environment for D1 database access
+        const { env } = getCloudflareContext();
+        const db = getDatabase(env);
 
         // Get recent works from the database
         const recentWorks = await db.select({

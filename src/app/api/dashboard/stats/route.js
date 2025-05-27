@@ -1,8 +1,9 @@
 export const runtime = 'edge';
-import { db } from '@/lib/db/index.js';
+import { getDatabase } from '@/lib/db/index.js';
 import { works, users } from '@/lib/db/schema.js';
 import { eq, and, sql, desc, count } from 'drizzle-orm';
 import { auth } from '@/lib/auth';
+import { getCloudflareContext } from '@opennextjs/cloudflare';
 
 export async function GET(request) {
     try {
@@ -14,6 +15,10 @@ export async function GET(request) {
         }
 
         const userId = session.user.id;
+        
+        // Get Cloudflare environment for D1 database access
+        const { env } = getCloudflareContext();
+        const db = getDatabase(env);
 
         // Get user with stats from the database
         const userWithStats = await db.select({
