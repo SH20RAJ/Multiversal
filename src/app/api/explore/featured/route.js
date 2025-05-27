@@ -1,3 +1,4 @@
+export const runtime = 'edge';
 import { db } from '../../../../lib/db';
 import { works, users } from '../../../../lib/db/schema';
 import { eq, and, sql, desc } from 'drizzle-orm';

@@ -2,6 +2,7 @@ import { db } from '../../../../lib/db';
 import { works } from '../../../../lib/db/schema';
 import { eq, desc } from 'drizzle-orm';
 import { auth } from '../../../../lib/auth';
+export const runtime = 'edge';
 
 export async function GET(request) {
     try {
