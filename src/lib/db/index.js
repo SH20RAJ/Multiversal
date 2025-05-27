@@ -1,5 +1,8 @@
 // Database connection and configuration
+// Supports both local development (better-sqlite3) and production (Cloudflare D1)
+
 import { drizzle } from 'drizzle-orm/better-sqlite3';
+import { drizzle as drizzleD1 } from 'drizzle-orm/d1';
 import Database from 'better-sqlite3';
 import { migrate } from 'drizzle-orm/better-sqlite3/migrator';
 import * as schema from './schema.js';
@@ -9,27 +12,59 @@ import fs from 'fs';
 // Mark all exported functions as server-only
 export const config = { runtime: 'nodejs' };
 
-// This code only runs on the server
-// Create SQLite database file
-const dbPath = process.env.DATABASE_URL || path.join(process.cwd(), 'data', 'multiversal.db');
-
-// Ensure the data directory exists
-const dataDir = path.dirname(dbPath);
-if (!fs.existsSync(dataDir)) {
-  fs.mkdirSync(dataDir, { recursive: true });
+/**
+ * Create database instance based on environment
+ * In production (Cloudflare Workers), env.DB will contain the D1 binding
+ * In development, we use better-sqlite3 with local file
+ */
+function createDatabaseConnection(env = {}) {
+  // Production: Cloudflare D1 database
+  if (env?.DB && typeof env.DB.prepare === 'function') {
+    console.log('🔗 Connected to Cloudflare D1 database');
+    return drizzleD1(env.DB, { schema });
+  }
+  
+  // Development: Local SQLite database
+  if (typeof window === 'undefined') {
+    const dbPath = process.env.DATABASE_URL || path.join(process.cwd(), 'data', 'multiversal.db');
+    
+    // Ensure the data directory exists
+    const dataDir = path.dirname(dbPath);
+    if (!fs.existsSync(dataDir)) {
+      fs.mkdirSync(dataDir, { recursive: true });
+    }
+    
+    // Initialize SQLite database
+    const sqlite = new Database(dbPath);
+    
+    // Enable WAL mode for better performance
+    sqlite.pragma('journal_mode = WAL');
+    
+    // Enable foreign keys
+    sqlite.pragma('foreign_keys = ON');
+    
+    console.log('🔗 Connected to local SQLite database');
+    return drizzle(sqlite, { schema });
+  }
+  
+  throw new Error('❌ Could not establish database connection');
 }
 
-// Initialize SQLite database
-const sqlite = new Database(dbPath);
+// Create default database instance for development
+let db;
+try {
+  db = createDatabaseConnection();
+} catch (error) {
+  console.warn('⚠️ Database connection failed, will retry in API routes');
+}
 
-// Enable WAL mode for better performance
-sqlite.pragma('journal_mode = WAL');
+// Export function to create database with environment (for Workers)
+export function getDatabase(env) {
+  return createDatabaseConnection(env);
+}
 
-// Enable foreign keys
-sqlite.pragma('foreign_keys = ON');
-
-// Create Drizzle instance
-export const db = drizzle(sqlite, { schema });
+// Export default database instance
+export { db };
 
 // Migration function
 export async function runMigrations() {

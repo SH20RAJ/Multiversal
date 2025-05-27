@@ -1,8 +1,8 @@
 export const runtime = 'edge';
-import { db } from '../../../../lib/db';
-import { works, users } from '../../../../lib/db/schema';
+import { db } from '@/lib/db';
+import { works, users } from '@/lib/db/schema';
 import { eq, and, sql, desc, count } from 'drizzle-orm';
-import { auth } from '../../../../lib/auth';
+import { auth } from '@/lib/auth';
 
 export async function GET(request) {
     try {

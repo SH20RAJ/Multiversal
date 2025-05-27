@@ -1,31 +1,31 @@
 'use client';
 import React, { useState } from 'react';
-import { 
-  Layout, 
-  Typography, 
-  Card, 
-  Button, 
-  Space, 
-  Row, 
-  Col, 
-  Input, 
-  Select, 
-  Tag, 
-  Switch, 
-  Progress, 
-  Modal, 
-  message 
+import {
+  Layout,
+  Typography,
+  Card,
+  Button,
+  Space,
+  Row,
+  Col,
+  Input,
+  Select,
+  Tag,
+  Switch,
+  Progress,
+  Modal,
+  message
 } from 'antd';
-import { 
-  Save, 
-  Eye, 
-  Sparkles, 
-  BookOpen, 
-  Edit3, 
-  Music, 
-  Palette, 
-  Video, 
-  Settings, 
+import {
+  Save,
+  Eye,
+  Sparkles,
+  BookOpen,
+  Edit3,
+  Music,
+  Palette,
+  Video,
+  Settings,
   Upload,
   Zap
 } from 'lucide-react';
@@ -49,34 +49,34 @@ export default function MinimalisticCreatePage() {
   const [wordCount, setWordCount] = useState(0);
 
   const contentTypes = [
-    { 
-      key: 'story', 
-      label: 'Story', 
-      icon: <BookOpen className="w-6 h-6" />, 
+    {
+      key: 'story',
+      label: 'Story',
+      icon: <BookOpen className="w-6 h-6" />,
       description: 'Share your narratives and tales',
       color: 'bg-blue-500',
       bgColor: 'bg-blue-50'
     },
-    { 
-      key: 'poetry', 
-      label: 'Poetry', 
-      icon: <Edit3 className="w-6 h-6" />, 
+    {
+      key: 'poetry',
+      label: 'Poetry',
+      icon: <Edit3 className="w-6 h-6" />,
       description: 'Express yourself in verse',
       color: 'bg-purple-500',
       bgColor: 'bg-purple-50'
     },
-    { 
-      key: 'music', 
-      label: 'Music', 
-      icon: <Music className="w-6 h-6" />, 
+    {
+      key: 'music',
+      label: 'Music',
+      icon: <Music className="w-6 h-6" />,
       description: 'Share your musical creations',
       color: 'bg-orange-500',
       bgColor: 'bg-orange-50'
     },
-    { 
-      key: 'art', 
-      label: 'Art', 
-      icon: <Palette className="w-6 h-6" />, 
+    {
+      key: 'art',
+      label: 'Art',
+      icon: <Palette className="w-6 h-6" />,
       description: 'Showcase your visual art',
       color: 'bg-green-500',
       bgColor: 'bg-green-50'
@@ -126,7 +126,7 @@ export default function MinimalisticCreatePage() {
   return (
     <Layout className="min-h-screen bg-gray-50">
       <NavigationHeader />
-      
+
       <Content className="pt-8">
         <div className="max-w-6xl mx-auto px-6">
           {/* Header */}
@@ -151,20 +151,18 @@ export default function MinimalisticCreatePage() {
                     <div
                       key={type.key}
                       onClick={() => setContentType(type.key)}
-                      className={`p-4 rounded-lg border-2 cursor-pointer transition-all duration-200 ${
-                        contentType === type.key 
-                          ? `border-indigo-500 ${type.bgColor}` 
+                      className={`p-4 rounded-lg border-2 cursor-pointer transition-all duration-200 ${contentType === type.key
+                          ? `border-indigo-500 ${type.bgColor}`
                           : 'border-gray-200 hover:border-gray-300 bg-white'
-                      }`}
+                        }`}
                     >
                       <div className="flex items-start space-x-3">
                         <div className={`p-2 rounded-lg text-white ${type.color}`}>
                           {type.icon}
                         </div>
                         <div className="flex-1">
-                          <Text className={`font-semibold ${
-                            contentType === type.key ? 'text-indigo-700' : 'text-gray-900'
-                          }`}>
+                          <Text className={`font-semibold ${contentType === type.key ? 'text-indigo-700' : 'text-gray-900'
+                            }`}>
                             {type.label}
                           </Text>
                           <Paragraph className="text-gray-600 text-sm mb-0 mt-1">
@@ -177,6 +175,65 @@ export default function MinimalisticCreatePage() {
                 </Space>
               </Card>
 
+              {/* Specialized Editors Section */}
+              <Card className="border-0 shadow-sm mt-6">
+                <div className="flex items-center justify-between mb-4">
+                  <Title level={4} className="text-gray-900 mb-0">
+                    Use Specialized Editors
+                  </Title>
+                  <Zap className="w-5 h-5 text-amber-500" />
+                </div>
+                <Paragraph className="text-gray-600 mb-4">
+                  For a richer creation experience, try our dedicated editors designed specifically for each content type
+                </Paragraph>
+                <Space direction="vertical" className="w-full" size="middle">
+                  <Button
+                    type="default"
+                    href="/create/poetry"
+                    className="w-full text-left h-auto py-3 px-4 flex items-center"
+                    icon={<Edit3 className="w-5 h-5 text-purple-500 mr-2" />}
+                  >
+                    <div>
+                      <span className="font-medium">Poetry Editor</span>
+                      <span className="text-gray-500 text-sm block">Enhanced features for verse formatting</span>
+                    </div>
+                  </Button>
+                  <Button
+                    type="default"
+                    href="/create/story"
+                    className="w-full text-left h-auto py-3 px-4 flex items-center"
+                    icon={<BookOpen className="w-5 h-5 text-blue-500 mr-2" />}
+                  >
+                    <div>
+                      <span className="font-medium">Story Editor</span>
+                      <span className="text-gray-500 text-sm block">Rich formatting for narrative writing</span>
+                    </div>
+                  </Button>
+                  <Button
+                    type="default"
+                    href="/create/art"
+                    className="w-full text-left h-auto py-3 px-4 flex items-center"
+                    icon={<Palette className="w-5 h-5 text-green-500 mr-2" />}
+                  >
+                    <div>
+                      <span className="font-medium">Art Upload</span>
+                      <span className="text-gray-500 text-sm block">Visual artwork gallery tools</span>
+                    </div>
+                  </Button>
+                  <Button
+                    type="default"
+                    href="/create/music"
+                    className="w-full text-left h-auto py-3 px-4 flex items-center"
+                    icon={<Music className="w-5 h-5 text-orange-500 mr-2" />}
+                  >
+                    <div>
+                      <span className="font-medium">Music Upload</span>
+                      <span className="text-gray-500 text-sm block">Audio player and metadata tools</span>
+                    </div>
+                  </Button>
+                </Space>
+              </Card>
+
               {/* Settings */}
               <Card className="border-0 shadow-sm">
                 <Title level={4} className="text-gray-900 mb-4">
@@ -185,16 +242,16 @@ export default function MinimalisticCreatePage() {
                 <Space direction="vertical" className="w-full" size="middle">
                   <div className="flex items-center justify-between">
                     <Text className="text-gray-700">Public</Text>
-                    <Switch 
-                      checked={isPublic} 
+                    <Switch
+                      checked={isPublic}
                       onChange={setIsPublic}
                       className="bg-gray-300"
                     />
                   </div>
                   <div className="flex items-center justify-between">
                     <Text className="text-gray-700">Allow Comments</Text>
-                    <Switch 
-                      checked={allowComments} 
+                    <Switch
+                      checked={allowComments}
                       onChange={setAllowComments}
                       className="bg-gray-300"
                     />
@@ -251,7 +308,7 @@ export default function MinimalisticCreatePage() {
                       value={content}
                       onChange={(e) => handleContentChange(e.target.value)}
                       className="border-0 resize-none"
-                      style={{ 
+                      style={{
                         minHeight: '500px',
                         fontSize: '16px',
                         lineHeight: '1.6'
@@ -267,24 +324,24 @@ export default function MinimalisticCreatePage() {
                         {wordCount} words
                       </Text>
                       {saveProgress > 0 && saveProgress < 100 && (
-                        <Progress 
-                          percent={saveProgress} 
-                          size="small" 
+                        <Progress
+                          percent={saveProgress}
+                          size="small"
                           className="w-32"
                           strokeColor="#6366f1"
                         />
                       )}
                     </Space>
                     <Space>
-                      <Button 
-                        icon={<Eye className="w-4 h-4" />} 
+                      <Button
+                        icon={<Eye className="w-4 h-4" />}
                         onClick={() => setPreviewVisible(true)}
                         className="border-gray-300"
                       >
                         Preview
                       </Button>
-                      <Button 
-                        icon={<Save className="w-4 h-4" />} 
+                      <Button
+                        icon={<Save className="w-4 h-4" />}
                         onClick={handleSave}
                         disabled={saveProgress > 0 && saveProgress < 100}
                         className="border-gray-300"
@@ -296,22 +353,22 @@ export default function MinimalisticCreatePage() {
 
                   {/* Action Buttons */}
                   <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-                    <Button 
+                    <Button
                       icon={<Settings className="w-4 h-4" />}
                       className="text-gray-600"
                     >
                       Advanced Settings
                     </Button>
-                    
+
                     <Space>
-                      <Button 
+                      <Button
                         size="large"
                         className="px-6"
                       >
                         Save as Draft
                       </Button>
-                      <Button 
-                        type="primary" 
+                      <Button
+                        type="primary"
                         size="large"
                         icon={<Sparkles className="w-4 h-4" />}
                         onClick={handlePublish}
@@ -340,8 +397,8 @@ export default function MinimalisticCreatePage() {
           <div className="p-6">
             {selectedType && (
               <div className="mb-4">
-                <Tag 
-                  icon={selectedType.icon} 
+                <Tag
+                  icon={selectedType.icon}
                   color="blue"
                   className="mb-2"
                 >

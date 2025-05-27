@@ -2,6 +2,10 @@ export const runtime = 'edge';
 import { db } from '../../../../lib/db';
 import { works, users } from '../../../../lib/db/schema';
 import { eq, and, sql, desc } from 'drizzle-orm';
+import { NextResponse } from 'next/server';
+
+// Cache configuration
+const CACHE_MAX_AGE = 300; // 5 minutes in seconds
 
 export async function GET() {
     try {
@@ -78,9 +82,24 @@ export async function GET() {
             };
         });
 
-        return Response.json(featuredWorks);
+        // Create a response with the data
+        const response = NextResponse.json(featuredWorks);
+
+        // Add cache control headers
+        response.headers.set('Cache-Control', `max-age=${CACHE_MAX_AGE}, s-maxage=${CACHE_MAX_AGE * 2}, stale-while-revalidate=${CACHE_MAX_AGE * 4}`);
+        response.headers.set('X-Multiversal-Cache', 'HIT');
+
+        return response;
     } catch (error) {
         console.error('Error fetching featured content:', error);
-        return Response.json({ error: 'Failed to fetch featured content' }, { status: 500 });
+
+        // Return error response without caching
+        const errorResponse = NextResponse.json(
+            { error: 'Failed to fetch featured content' },
+            { status: 500 }
+        );
+
+        errorResponse.headers.set('Cache-Control', 'no-store');
+        return errorResponse;
     }
 }

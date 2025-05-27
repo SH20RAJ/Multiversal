@@ -8,6 +8,13 @@
       "when": 1748327867132,
       "tag": "0000_fuzzy_shocker",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1748344425977,
+      "tag": "0001_safe_micromacro",
+      "breakpoints": true
     }
   ]
 }
